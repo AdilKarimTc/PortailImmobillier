@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PortailImmobillier.Data.DatabseContexts.AuthenticationDbContext;
+using PortailImmobillier.Data.DatabseContexts.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -27,8 +28,21 @@ namespace PortailImmobillier.Web
         public void ConfigureServices(IServiceCollection services)
         {   
             services.AddDbContextPool<AuthenticationDbContext>(
-              options => options.UseSqlServer(Configuration.GetConnectionString("AuthenticationConnection"))
+              options => options.UseSqlServer(Configuration.GetConnectionString("AuthenticationConnection"),
+              
+                sqlServerOptions => {
+                    sqlServerOptions.MigrationsAssembly("PortailImmobillier.Data");
+                }  
+              
+            )
                );
+
+            services.AddDbContextPool<ApplicationDbContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDb"),
+                sqlSeverOptions =>{
+                    sqlSeverOptions.MigrationsAssembly("PortailImmobillier.Data");
+                }
+            ));   
             services.AddControllersWithViews();
         }
 
