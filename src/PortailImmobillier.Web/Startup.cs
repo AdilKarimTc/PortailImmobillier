@@ -13,7 +13,8 @@ using PortailImmobillier.Data.DatabseContexts.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using PortailImmobillier.Data.Entities;
-
+using PortailImmobillier.Web.Interfaces;
+using PortailImmobillier.Web.Services;
 
 namespace PortailImmobillier.Web
 {
@@ -63,6 +64,7 @@ namespace PortailImmobillier.Web
              });
 
             services.AddControllersWithViews();
+            services.AddTransient<IComptesService,ComptesService>();
 
         }
 

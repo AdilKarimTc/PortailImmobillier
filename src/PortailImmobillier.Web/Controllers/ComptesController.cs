@@ -1,11 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
 using PortailImmobillier.Web.Models;
 using System;
+using PortailImmobillier.Web.Interfaces;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using PortailImmobillier.Data.Entities;
+using System.Text;
 
 namespace PortailImmobillier.Web.Controllers
 {
     public class ComptesController : Controller
     {   
+        private readonly IComptesService _comptesService;
+        private readonly SignInManager<Utilisateur> _signInManager;
+
+
+        public ComptesController(IComptesService comptesService, SignInManager<Utilisateur> signInManager)
+        {
+            _comptesService = comptesService;
+            _signInManager = signInManager;
+        }
 
         [HttpGet]
         public IActionResult Login(){
@@ -13,10 +27,29 @@ namespace PortailImmobillier.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginModel model)
+        public async Task<IActionResult> Login(LoginModel model)
         {   
             if(!ModelState.IsValid) return View();
-            throw new NotImplementedException();
+
+            try 
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+                if(!result.Succeeded)
+                {
+                    ModelState.AddModelError("","Login Failed Please check your details");
+                    return View();
+                }
+                return LocalRedirect("~/");
+                
+            }
+            catch(Exception e)
+            {
+
+                ModelState.AddModelError("", e.Message);
+                return View();
+
+            }
+            
         }    
         
 
@@ -26,13 +59,22 @@ namespace PortailImmobillier.Web.Controllers
         }
         
         [HttpPost]
-        public IActionResult Register(RegisterModel model)
+        public async Task<IActionResult> Register(RegisterModel model)
         {
             if(!ModelState.IsValid) return View();
-            throw new NotImplementedException();
+             try
+            {
+                var user = await _comptesService.CreateUtilisateurAsync(model);
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return LocalRedirect("~/");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+                return View();
+            }
+
         }
-
-
-
     }
 }
+
