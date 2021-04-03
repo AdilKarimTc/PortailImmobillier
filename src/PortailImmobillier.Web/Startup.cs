@@ -38,7 +38,7 @@ namespace PortailImmobillier.Web
                );
 
             services.AddDbContextPool<ApplicationDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDb"),
+                options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationConnection"),
                 sqlSeverOptions =>{
                     sqlSeverOptions.MigrationsAssembly("PortailImmobillier.Data");
                 }
