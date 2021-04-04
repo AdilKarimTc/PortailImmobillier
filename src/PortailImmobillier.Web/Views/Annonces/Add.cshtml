@@ -1,3 +1,8 @@
+@model PortailImmobillier.Web.Models.AnnoncesModel
+@{
+
+}
+
 <div class="page-head"> 
     <div class="container">
         <div class="row">
@@ -16,7 +21,7 @@
             <div class="wizard-container"> 
 
                 <div class="wizard-card ct-wizard-orange" id="wizardProperty">
-                    <form action="" method="">                        
+                    <form action="Add" method="POST">                        
                         <div class="wizard-header">
                             <h3>
                                 <b>Submit</b> YOUR PROPERTY <br>
@@ -47,16 +52,16 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Property name <small>(required)</small></label>
-                                            <input name="propertyname" type="text" class="form-control" placeholder="Super villa ...">
+                                            <input asp-for="Titre" type="text" class="form-control" placeholder="Super villa ... ">
                                         </div>
 
                                         <div class="form-group">
                                             <label>Property price <small>(required)</small></label>
-                                            <input name="propertyprice" type="text" class="form-control" placeholder="3330000">
+                                            <input asp-for="Prix" type="text" class="form-control" placeholder="3330000">
                                         </div> 
                                         <div class="form-group">
                                             <label>Telephone <small>(empty if you wanna use default phone number)</small></label>
-                                            <input name="phone" type="text" class="form-control" placeholder="+1 473 843 7436">
+                                            <input asp-for="ContactPhoneNumber" type="text" class="form-control" placeholder="+1 473 843 7436">
                                         </div>
                                     </div>
                                 </div>
@@ -64,15 +69,15 @@
                                     <!--  End step 1 -->
 
                             <div class="tab-pane" id="step2">
-                                <h4 class="info-text"> How much your Property is Beautiful ? </h4>
+                                <h4 class="info-text"> How Beautiful is your Annonce ? </h4>
                                 <div class="row">
                                     <div class="col-sm-12">                                             <div class="col-sm-12"> 
                                         <div class="form-group">
                                             <label>Property Description :</label>
-                                            <textarea name="discrition" class="form-control" ></textarea>
+                                            <textarea asp-for="Description" class="form-control" ></textarea>
                                         </div> 
                                     </div> 
-                            </div>
+                                </div>
 
                                     <div class="col-sm-12">
                                         <div class="col-sm-3">
@@ -108,7 +113,6 @@
                                                     <option> -Status- </option>
                                                     <option>Rent </option>
                                                     <option>Boy</option>
-                                                    <option>used</option>  
 
                                                 </select>
                                             </div>
@@ -120,7 +124,6 @@
                                                     <option> -Status- </option>
                                                     <option>Rent </option>
                                                     <option>Boy</option>
-                                                    <option>used</option>  
 
                                                 </select>
                                             </div>
@@ -129,35 +132,19 @@
                                     <div class="col-sm-12 padding-top-15">                                                   
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label for="property-geo">Min bed :</label>
-                                                <input type="text" class="span2" value="" data-slider-min="0" 
-                                                       data-slider-max="600" data-slider-step="5" 
-                                                       data-slider-value="[250,450]" id="min-bed" ><br />
-                                                <b class="pull-left color">1</b> 
-                                                <b class="pull-right color">120</b>
+                                                <label for="property-geo">Chambres :</label>
+                                                <input type="number" class="form-control" asp-for="Chambres" value=""><br/>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
 
                                             <div class="form-group">
-                                                <label for="price-range">Min baths :</label>
-                                                <input type="text" class="span2" value="" data-slider-min="0" 
-                                                       data-slider-max="600" data-slider-step="5" 
-                                                       data-slider-value="[250,450]" id="min-baths" ><br />
-                                                <b class="pull-left color">1</b> 
-                                                <b class="pull-right color">120</b>
+                                                <label for="price-range">Toilettes :</label>
+                                                <input type="number" asp-for="Toilettes" class="form-control" value=""><br/>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
 
-                                            <div class="form-group">
-                                                <label for="property-geo">Property geo (m2) :</label>
-                                                <input type="text" class="span2" value="" data-slider-min="0" 
-                                                       data-slider-max="600" data-slider-step="5" 
-                                                       data-slider-value="[50,450]" id="property-geo" ><br />
-                                                <b class="pull-left color">40m</b> 
-                                                <b class="pull-right color">12000m</b>
-                                            </div>
                                         </div>   
                                     </div>
                                     <div class="col-sm-12 padding-top-15">
@@ -242,7 +229,7 @@
                             <!-- End step 2 -->
 
                             <div class="tab-pane" id="step3">                                        
-                                <h4 class="info-text">Give us somme images and videos ? </h4>
+                                <h4 class="info-text">More Details ? </h4>
                                 <div class="row">  
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -251,6 +238,14 @@
                                             <p class="help-block">Select multipel images for your property .</p>
                                         </div>
                                     </div>
+
+                                <div class="form-group">
+                                    <label>Addresse :</label>
+                                    <textarea asp-for="Adresse" class="form-control" ></textarea>
+                                </div>               
+
+
+
                                     <div class="col-sm-6"> 
                                         <div class="form-group">
                                             <label for="property-video">Property video :</label>
@@ -276,7 +271,7 @@
                                         <div class="">
                                             <p>
                                                 <label><strong>Terms and Conditions</strong></label>
-                                                By accessing or using  GARO ESTATE services, such as 
+                                                By accessing or using  ImmoMaroc services, such as 
                                                 posting your property advertisement with your personal 
                                                 information on our website you agree to the
                                                 collection, use and disclosure of your personal information 
@@ -300,7 +295,7 @@
                         <div class="wizard-footer">
                             <div class="pull-right">
                                 <input type='button' class='btn btn-next btn-primary' name='next' value='Next' />
-                                <input type='button' class='btn btn-finish btn-primary ' name='finish' value='Finish' />
+                                <input type='submit' class='btn btn-finish btn-primary ' name='finish' value='Finish' />
                             </div>
 
                             <div class="pull-left">
