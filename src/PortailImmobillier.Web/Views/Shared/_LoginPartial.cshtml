@@ -1,0 +1,29 @@
+ @using Microsoft.AspNetCore.Identity
+ @using PortailImmobillier.Data.Entities
+ @inject SignInManager<Utilisateur> SignInManager
+ @inject UserManager<Utilisateur> UserManager
+ 
+
+
+@if(SignInManager.IsSignedIn(User))
+{
+    <div class="button navbar-right">
+        <form asp-action="post">
+            <button class="navbar-btn nav-button wow bounceInRight login" asp-controller="Comptes" asp-action="Logout" data-wow-delay="0.4s">Logout</button>
+        </form>
+    </div>
+}
+else
+{
+    <form action="get">
+        <div class="button navbar-right">
+            <button class="navbar-btn nav-button wow bounceInRight login" asp-controller="Comptes" asp-action="Login" data-wow-delay="0.4s">
+              Login    
+            </button>
+            <button class="navbar-btn nav-button wow fadeInRight" asp-controller="Comptes" asp-action="register" data-wow-delay="0.5s">
+               Register 
+            </button>
+        </div>
+    </form>
+}
+
