@@ -65,6 +65,7 @@ namespace PortailImmobillier.Web
 
             services.AddControllersWithViews();
             services.AddTransient<IComptesService,ComptesService>();
+            services.AddTransient<IAnnoncesService,AnnoncesService>();
 
         }
 

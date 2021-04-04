@@ -1,11 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using PortailImmobillier.Web.Models;
+using PortailImmobillier.Web.Interfaces;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using PortailImmobillier.Data.Entities;
+
 
 namespace PortailImmobillier.Web.Controllers{
     
     public class AnnoncesController : Controller
     {
+        private readonly IAnnoncesService _annonceService;
+        public AnnoncesController(IAnnoncesService annonceService)
+        {
+            _annonceService = annonceService;
+        }
+
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -18,9 +30,19 @@ namespace PortailImmobillier.Web.Controllers{
         }
 
         
-        public IActionResult Add(AnnoncesModel model)
+        public async Task<IActionResult> Add(AnnoncesModel model)
         {
-            throw new NotImplementedException();
+            try 
+            {
+                await _annonceService.AddAnnonce(model);
+                 return RedirectToAction(nameof(Index));
+            
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
         }
 
     }
