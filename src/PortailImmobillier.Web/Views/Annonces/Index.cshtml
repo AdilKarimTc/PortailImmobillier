@@ -1,1 +1,18 @@
-<h1>Properity Page</h1>
+@model IEnumerable<PortailImmobillier.Data.Entities.Annonce> 
+
+    <h1>Test </h1>
+
+
+    @if (Model is object)
+    {
+         @foreach (var annonce in Model)
+        {
+         <h3> @annonce.Titre  </h3>
+         <p> @annonce.Adresse </p>
+         <p> @annonce.Prix </p>
+         <p> @annonce.ContactPhoneNumber </p>
+        
+        }
+    }
+
+   

@@ -21,7 +21,8 @@ namespace PortailImmobillier.Web.Controllers{
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var annonces = _annonceService.GetAllAnnonces();
+            return View(annonces);
         }
         [HttpGet]
         public IActionResult Add()

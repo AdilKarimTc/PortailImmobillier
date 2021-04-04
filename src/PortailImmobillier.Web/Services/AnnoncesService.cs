@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using PortailImmobillier.Data.DatabseContexts.ApplicationDbContext;
 using PortailImmobillier.Data.Entities;
 using PortailImmobillier.Web.Interfaces;
+using System.Collections.Generic;
 using System;
 
 
@@ -16,6 +17,16 @@ namespace PortailImmobillier.Web.Services
         {
             _dbContext = dbContext;
         }
+
+        
+        public IEnumerable<Annonce> GetAllAnnonces()
+        {
+            /// We need To return a list of Annonces
+            return _dbContext.Annonces;
+        }
+
+
+
 
         public async Task AddAnnonce(AnnoncesModel model)
         {
